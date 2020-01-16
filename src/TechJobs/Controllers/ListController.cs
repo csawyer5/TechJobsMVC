@@ -9,11 +9,9 @@ namespace TechJobs.Controllers
     {
         internal static Dictionary<string, string> columnChoices = new Dictionary<string, string>();
 
-        // This is a "static constructor" which can be used
-        // to initialize static members of a class
-        static ListController() 
+       
+        static ListController()
         {
-            
             columnChoices.Add("core competency", "Skill");
             columnChoices.Add("employer", "Employer");
             columnChoices.Add("location", "Location");
@@ -32,14 +30,14 @@ namespace TechJobs.Controllers
             if (column.Equals("all"))
             {
                 List<Dictionary<string, string>> jobs = JobData.FindAll();
-                ViewBag.title =  "All Jobs";
+                ViewBag.title = "All Jobs";
                 ViewBag.jobs = jobs;
                 return View("Jobs");
             }
             else
             {
                 List<string> items = JobData.FindAll(column);
-                ViewBag.title =  "All " + columnChoices[column] + " Values";
+                ViewBag.title = "All " + columnChoices[column] + " Values";
                 ViewBag.column = column;
                 ViewBag.items = items;
                 return View();

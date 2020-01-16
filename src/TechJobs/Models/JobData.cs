@@ -14,14 +14,10 @@ namespace TechJobs.Models
         {
             LoadData();
 
-            // Bonus mission: return a copy
+           
             return new List<Dictionary<string, string>>(AllJobs);
         }
 
-        /*
-         * Returns a list of all values contained in a given column,
-         * without duplicates. 
-         */
         public static List<string> FindAll(string column)
         {
             LoadData();
@@ -38,17 +34,14 @@ namespace TechJobs.Models
                 }
             }
 
-            // Bonus mission: sort results alphabetically
             values.Sort();
             return values;
         }
 
-        /**
-         * Search all columns for the given term
-         */
+      
         public static List<Dictionary<string, string>> FindByValue(string value)
         {
-            // load data, if not already loaded
+            
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
@@ -64,7 +57,7 @@ namespace TechJobs.Models
                     {
                         jobs.Add(row);
 
-                        // Finding one field in a job that matches is sufficient
+                      
                         break;
                     }
                 }
@@ -73,16 +66,11 @@ namespace TechJobs.Models
             return jobs;
         }
 
-        /**
-         * Returns results of search the jobs data by key/value, using
-         * inclusion of the search term.
-         *
-         * For example, searching for employer "Enterprise" will include results
-         * with "Enterprise Holdings, Inc".
-         */
+       
+         
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
-            // load data, if not already loaded
+         
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
@@ -100,9 +88,7 @@ namespace TechJobs.Models
             return jobs;
         }
 
-        /*
-         * Load and parse data from job_data.csv
-         */
+       
         private static void LoadData()
         {
 
@@ -129,7 +115,7 @@ namespace TechJobs.Models
             string[] headers = rows[0];
             rows.Remove(headers);
 
-            // Parse each row array into a more friendly Dictionary
+           
             foreach (string[] row in rows)
             {
                 Dictionary<string, string> rowDict = new Dictionary<string, string>();
@@ -144,16 +130,14 @@ namespace TechJobs.Models
             IsDataLoaded = true;
         }
 
-        /*
-         * Parse a single line of a CSV file into a string array
-         */
+        
         private static string[] CSVRowToStringArray(string row, char fieldSeparator = ',', char stringSeparator = '\"')
         {
             bool isBetweenQuotes = false;
             StringBuilder valueBuilder = new StringBuilder();
             List<string> rowValues = new List<string>();
 
-            // Loop through the row string one char at a time
+           
             foreach (char c in row.ToCharArray())
             {
                 if ((c == fieldSeparator && !isBetweenQuotes))
@@ -174,7 +158,7 @@ namespace TechJobs.Models
                 }
             }
 
-            // Add the final value
+           
             rowValues.Add(valueBuilder.ToString());
             valueBuilder.Clear();
 

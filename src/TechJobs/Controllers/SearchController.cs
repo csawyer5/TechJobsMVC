@@ -13,30 +13,27 @@ namespace TechJobs.Controllers
             return View();
         }
 
-       
-        public IActionResult Results(string searchType, string searchTerm) 
+
+        public IActionResult Results(string searchType, string searchTerm)
         {
             ViewBag.columns = ListController.columnChoices;
             ViewBag.title = "Search";
             List<Dictionary<string, string>> jobList = new List<Dictionary<string, string>>();
 
-            if (string.IsNullOrEmpty(searchTerm))
+            if (searchTerm == null)
             {
-                ViewBag.error = "You did not enter a search term";
-            } 
-            
+                searchTerm = "";
+            }
+
+            if (searchType.Equals("all"))
+            {
+                jobList = JobData.FindByValue(searchTerm);
+            }
             else
             {
-                if (searchType.Equals("all"))
-                {
-                    jobList = JobData.FindByValue(searchTerm);
-                }
-                else
-                {
-                    jobList = JobData.FindByColumnAndValue(searchType, searchTerm);
-                }
-                ViewBag.jobs = jobList;
+                jobList = JobData.FindByColumnAndValue(searchType, searchTerm);
             }
+            ViewBag.jobs = jobList;
 
             return View("Index");
         }
